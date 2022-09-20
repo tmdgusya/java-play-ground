@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class SortExample {
 
-    static class Person {
+    static class Person implements Comparable<Person> {
 
         public Person(int age) {
             this.age = age;
@@ -17,6 +17,11 @@ public class SortExample {
             return "Person{" +
                     "age=" + age +
                     '}';
+        }
+
+        @Override
+        public int compareTo(Person o) {
+            return o.age * -1;
         }
     }
 
