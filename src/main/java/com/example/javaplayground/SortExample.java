@@ -1,38 +1,60 @@
 package com.example.javaplayground;
 
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class SortExample {
 
-    static class Person implements Comparable<Person> {
-
-        public Person(int age) {
-            this.age = age;
-        }
-
+    static class Person {
         int age;
+        int bornAge;
+
+        public Person(int age, int bornAge) {
+            this.age = age;
+            this.bornAge = bornAge;
+        }
 
         @Override
         public String toString() {
             return "Person{" +
                     "age=" + age +
+                    ", bornAge='" + bornAge + '\'' +
                     '}';
         }
+    }
+
+    public static class PersonComparator implements Comparator<Person> {
 
         @Override
-        public int compareTo(Person o) {
-            return o.age * -1;
+        public int compare(Person o1, Person o2) {
+            if (o1.bornAge > o2.bornAge) {
+                return 1;
+            }
+
+            if (o1.bornAge < o2.bornAge) {
+                return -1;
+            }
+
+            if (o1.age > o2.age) {
+                return 1;
+            }
+
+            if (o1.age < o2.age) {
+                return -1;
+            }
+
+            return 0;
         }
     }
 
     public static void main(String[] args) {
         Person[] people = {
-            new Person(10),
-            new Person(5),
-            new Person(3)
+            new Person(10, 0),
+            new Person(5, 1),
+            new Person(3, 0)
         };
 
-        Arrays.sort(people);
+        Arrays.sort(people, new PersonComparator());
 
         // 3, 5, 10
         System.out.println(Arrays.toString(people));
